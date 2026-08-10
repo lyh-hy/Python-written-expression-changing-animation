@@ -1,0 +1,74 @@
+import turtle
+import time
+
+screen = turtle.Screen()
+screen.title("闪烁笑脸")
+screen.setup(width=400, height=400)
+pen = turtle.Turtle()
+pen.hideturtle()
+pen.speed(0)
+screen.tracer(0)
+
+face_colors = ["red", "orange", "yellow", "green", "blue", "purple","pink","orange"]
+color_index = 0
+
+
+def draw_smile():
+    global color_index
+    pen.clear()
+    pen.penup()
+    pen.goto(0, 0)
+    pen.setheading(0)
+    pen.pendown()
+
+    face_color = face_colors[color_index]
+    color_index = (color_index + 1) % len(face_colors)
+
+    # 黄色脸蛋
+    pen.penup()
+    pen.goto(0, -100)
+    pen.pendown()
+    pen.color(face_color)
+    pen.begin_fill()
+    pen.circle(100)
+    pen.end_fill()
+
+    # 左眼
+    pen.penup()
+    pen.goto(-35, 30)
+    pen.pendown()
+    pen.color("black")
+    pen.begin_fill()
+    pen.circle(12)
+    pen.end_fill()
+
+    # 右眼
+    pen.penup()
+    pen.goto(35, 30)
+    pen.pendown()
+    pen.begin_fill()
+    pen.circle(12)
+    pen.end_fill()
+
+    # 微笑嘴巴 - 修正版
+    pen.penup()
+    pen.goto(-50, -20)  # 嘴巴左端点
+    pen.pendown()
+    pen.pensize(6)
+    pen.color("black")
+    pen.setheading(-60)  # 设置起始方向为左下方
+    pen.circle(60, 120)  # 画120度的弧
+
+
+try:
+    while True:
+        draw_smile()
+        screen.update()
+        time.sleep(0.4)
+        pen.clear()
+        screen.update()
+        time.sleep(0.4)
+except turtle.Terminator:
+    pass
+
+turtle.done()
